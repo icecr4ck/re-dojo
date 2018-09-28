@@ -14,7 +14,7 @@ paginate = 10
 [params]
   # Shown in the home page
   subtitle = "Reverse engineering and ninja stuff"
-  brand = "Blackburn"
+  brand = "RE-Dojo"
   #googleAnalytics = "Your Google Analytics tracking ID"
   disqus = "Your Disqus shortname"
   # CSS name for highlight.js
