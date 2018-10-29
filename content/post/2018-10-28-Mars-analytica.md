@@ -1,4 +1,4 @@
-I went to Mars with Ida
+I went to Mars with IDA
 =======================
 
 ## A little bit of context
@@ -10,7 +10,9 @@ This blogpost will discuss how i solved it.
 
 ## Probing the martian executable
 
-The challenge description stated that [something about code obfuscation].
+Description:  
+"The government has hired a specialized data brokerage, collection, and analysis firm known as Mars Analytica to assess the societal worth and risk of its citizens in preparations for the colonization of Mars. Publicly officials are denying this, but you got your hands on their analysis software. Find a way to log in with a cleared citizen id and expose the Mars Analytica firm's true purpose".
+
 Before attempting to reverse a binary, it is always good to take a look at the low-hanging fruits: the file format, the size, the strings...
 At first sight the binary didn't seem to be too big.
 Running the file utility against it indicated that it was compressed with UPX. The command output also indicated that it is a stripped ELF x86-64 binary.
@@ -394,7 +396,7 @@ if solver.check() == z3.sat:
 print solution
 ```
 
-The different scripts can be found here [FIXME link github]
+The different scripts can be found [here](https://github.com/0xSQUD/mars_analytica).
 
 ## It got stucked in the sand... :(
 
