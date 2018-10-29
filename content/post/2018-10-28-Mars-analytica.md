@@ -237,7 +237,7 @@ tab1=[Dword(0xE4DC00+i) for i in range(0,0x253C,4)]
 tab2=[Dword(0xE50140+i) for i in range(0,0x253C,4)]
 tab3=[Dword(0xE52680+i) for i in range(0,0x2B5C,4)]
 tab4=[Dword(0xE551E0+i) for i in range(0,0x2B5C,4)]
-tab5=[Dword(0xE57D40+i) for i in range(0,0x56B8,4)]
+tab5=[Qword(0xE57D40+i) for i in range(0,0x56B8,8)]
 
 # dispatcher function
 # num is the value of VM.PC
