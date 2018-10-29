@@ -17,13 +17,13 @@ Running the file utility against it indicated that it was compressed with UPX. T
 After having unpacked the ELF binary, the size grew to almost **11M** :O
 No useful strings are present in the binary.
 
-![Image](MarsAnalytica_output.png "running the executable")
+![Image](/images/mars/MarsAnalytica_output.png "running the executable")
 
 ## Alien elf is a thing
 
 After having opened the binary in IDA and let the autoanalysis complete (which took some time), the navigation bar didn't look reassuring.
 
-![Image](navigation_bar.png "navigation bar")
+![Image](/images/mars/navigation_bar.png "navigation bar")
 
 Looking at the main function revealed a lot of _weird_ stuff are going on:
 * a very large stack frame is created (0xBA4A8)
@@ -32,20 +32,20 @@ Looking at the main function revealed a lot of _weird_ stuff are going on:
 * some weird calculations based on the arrays copied is happening
 * the function ends with a push/ret
 
-![Image](main.png "main")
+![Image](/images/marsmain.png "main")
 
 Just out of curiosity, I took a look at the disassembly following the main function. One could see that the same weird computation is present in the following (undefined) functions. Moreover, most of these functions either ends with a `push/ret` or a `jmp rax`.
 This code construct reminded me of a virtual machine where each handler computes the address of the next handler (like a distributed dispatch or _direct-threaded code_).
 This can be further verified by dynamic analysis using a debugger such as GDB but beforehand, once again: low-hanging fruits.
 A little bit of `strace` could give an overview of how the binary behaves.
 
-![Image](strace_output.png "strace output")
+![Image](/images/mars/strace_output.png "strace output")
 
 I guessed that all the "write(1,char,1)" lines were in fact calls to the `putchar` function. A good thing to do also is looking at the cross-references. There are 861 calls to the `putchar` function which meant that there are probably some redundant handlers.
 
 Another interesting function to look at was the `malloc` function. The first cross-reference took me to a function which seemed to be a list insertion algorithm.
 
-![Image](push_val.png "list insertion")
+![Image](/images/mars/push_val.png "list insertion")
 
 Interestingly enough, there are 1178 cross-references to this function.
 A hunch told me to look at the `free` function. As expected the first cross-reference to the `free` function is a routine which implements a list removal algorithm. There are 1276 cross-references to that function.
@@ -263,7 +263,7 @@ STORE SP[Immediate Index]
 
 Since the machine implements a stack machine it is really important to understand how values and pushed and popped. The astute reader would have probably noticed that it is also possible to access stack variables by index.
 
-![Image](list_store_at_index.png "store in stack variable by index")
+![Image](/images/mars/list_store_at_index.png "store in stack variable by index")
 
 After reversing some more handlers I eventually got stucked because there were too many handlers (remember the 10M size?... ) and I saw some redundant handlers not to mention that a lot of them were very obfuscated.
 
@@ -287,9 +287,9 @@ if all(t in targets for t in f_putchar):
 The next thing I noticed was the most important information.  
 Some handlers are very complicated to understand due to their obfuscation but as the VM is stack-based, the code needs to access the stack variables and it does so by calling the `pop_value` function for example. The following images show the overview of a XOR handler and its relevant code.
 
-![Image](xor_handler_view.png "XOR handler overview")
+![Image](/images/mars/xor_handler_view.png "XOR handler overview")
 
-![Image](xor_handler.png "XOR handler relevant code")
+![Image](/images/mars/xor_handler.png "XOR handler relevant code")
 
 As one can see that part is not obfuscated and it is pretty clear:
 * two values are "popped" from the stack
