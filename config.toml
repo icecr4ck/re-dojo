@@ -2,13 +2,16 @@ baseURL = "https://re-dojo.github.io/"
 languageCode = "en-us"
 title = "RE-Dojo"
 theme = "blackburn"
-author = ""
 copyright = "&copy; 2018. All rights reserved."
 canonifyurls = true
 paginate = 10
 
-[indexes]
+[taxonomies]
+  author = "authors"
   tag = "tags"
+  category = "categories"
+
+[indexes]
   topic = "topics"
 
 [params]
@@ -51,7 +54,7 @@ paginate = 10
 [social]
   # Link your social networking accouns to the side menu
   # by entering your username or ID.
-  twitter = "icecr4ck"
+  # twitter = "icecr4ck"
   #facebook = "*"
   #instagram = "*"
   github = "RE-Dojo"
