@@ -5,3 +5,6 @@
 	path = public
 	url = git@github.com:RE-Dojo/re-dojo.github.io.git
 	branch = master
+[submodule "themes/hyde-hyde"]
+	path = themes/hyde-hyde
+	url = https://github.com/htr3n/hyde-hyde.git
