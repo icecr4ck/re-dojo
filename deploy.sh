@@ -1,7 +1,7 @@
 #!/bin/bash
 echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 # Build the project.
-hugo -t blackburn
+hugo -t hyde-hyde
 cd public
 git add .
 # Commit changes.

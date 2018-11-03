@@ -1,8 +1,8 @@
 ## Basic Configuration
-baseurl = "https://example.com/"
+baseurl = "https://re-dojo.github.io/"
 languageCode = "en"
 
-title = "Title"
+title = "RE-Dojo"
 theme = "hyde-hyde"
 
 ## Hugo Built-in Features
@@ -13,13 +13,16 @@ theme = "hyde-hyde"
 # summarylength = 30
 
 #paginate = 5
+[taxonomies]
+	author = "authors"
+	tag = "tags"
+	category = "categories"
 
 ## Site Settings
 [params]
-    author = "Author"
-    title = "Title"
+    author = "RE-Dojo"
     # description = "..."
-    authorimage = "/img/hugo.png"
+    authorimage = "/img/re-dojo.png"
     dateformat = "Jan 2, 2006"
     highlightjs = true
     highlightjsstyle = "github"
@@ -31,27 +34,27 @@ theme = "hyde-hyde"
 
 ## Social Accounts
 [params.social]
-    github = "<username>"
-    instagram = "<username>"
-    xing = "<username>"
-    linkedin = "<username>"
-    twitter = "<username>"
-    facebook = "<username>"
-    stackoverflow = "<username>"
-    telegram = "<username>"
-    email = "your-email@example.com"
+    github = "RE-Dojo"
+    #instagram = "<username>"
+    #xing = "<username>"
+    #linkedin = "<username>"
+    #twitter = "<username>"
+    #facebook = "<username>"
+    #stackoverflow = "<username>"
+    #telegram = "<username>"
+    #email = "your-email@example.com"
 
 ## Main Menu
 [[menu.main]]
     name = "Posts"
     weight = 100
-    identifier = "posts"
-    url = "/posts/"
-[[menu.main]]
-    name = "Portfolio"
-    identifier = "portfolio"
-    weight = 200
-    url = "/portfolio/"
+    identifier = "post"
+    url = "/post/"
+#[[menu.main]]
+#    name = "Portfolio"
+#    identifier = "portfolio"
+#    weight = 200
+#    url = "/portfolio/"
 [[menu.main]]
     name = "About"
     identifier = "about"

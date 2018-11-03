@@ -2,7 +2,7 @@
 title: "[NSEC 2018] Mars Analytica (20)"
 date: 2018-10-28T13:37:00-04:00
 authors:
-- scud
+- 5Cl_lD
 tags:
 - ctf
 - reverse
