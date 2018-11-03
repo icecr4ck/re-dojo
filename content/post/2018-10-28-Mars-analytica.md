@@ -64,8 +64,8 @@ At that moment I thought that I had enough information to start reversing.
 
 ## Getting acquainted with the alien
 
-In order to implement a disassembler for the VM I had to focus on the weird computation first to be able to know the next handler.
-The main function is right entrypoint to gather information about the VM initialization. As mentioned earlier the 5 arrays are essential to the handler computation. After renaming some variables, following the computation dynamically, diffing with other handlers, it was possible to understand and reimplement the routine.
+In order to implement a disassembler for the VM I had to focus on the weird computation first to be able to compute the next handler.
+The main function is the right entrypoint to gather information about the VM initialization. As mentioned earlier the 5 arrays are essential to the handler computation. After renaming some variables, following the computation dynamically, diffing with other handlers, it was possible to understand and reimplement the routine.
 
 ```
 	mov	[rbp+var_65F40], 0
@@ -233,7 +233,7 @@ locret_401149:
 	retn
 ```
 
-The stack variable `rbp-0x65f40` seemed to be the "program counter" because it is incremented (almost) everytime. Also its value is used as an index in the first array. The value fetched is then used as an index in the second array...  
+The stack variable `rbp-0x65f40` seemed to be the "program counter" because it is incremented everytime. Also its value is used as an index in the first array. The value fetched is then used as an index in the second array...  
 The following pseudocode might explain it better (using IDApython).
 
 ```python
@@ -276,12 +276,12 @@ After reversing some more handlers I eventually got stucked because there were t
 
 ## There's also water on Mars
 
-At that moment I really thought about completely changing my way of resolving the challenge because I would have needed to reverse too many handlers to implement a disassembler based on handlers start address.  
+At that moment I really thought about completely changing my way of solving the challenge because I would have needed to reverse too many handlers to implement a disassembler based on handlers start address.  
 Though reverse engineering really consists in finding/recognizing pattens, experiencing, repetition... so I went looking for patterns.
 At some point I started to see a correlation between the calls a handler makes and the behaviour of the handler.  
-For instance, I knew that if a handler calls the functions `pop_value`, `putchar` and `fflush` then the handler just implements a `putchar`.
+For instance, I knew that if a handler calls the functions `pop_val`, `putchar` and `fflush` then the handler just implements a `putchar`.
 
-In order to take advantage of that one need to gather the handler "cross-references from" and compare that list. The follozing code describes the process:
+In order to take advantage of that, one need to gather the handler's "cross-references from" and compare that list. The following code describes the process:
 
 ```python
 f_putchar=["pop_val","putchar","fflush"]
@@ -292,13 +292,13 @@ if all(t in targets for t in f_putchar):
 ```
 
 The next thing I noticed was the most important information.  
-Some handlers are very complicated to understand due to their obfuscation but as the VM is stack-based, the code needs to access the stack variables and it does so by calling the `pop_value` function for example. The following images show the overview of a XOR handler and its relevant code.
+Some handlers are very complicated to understand due to their obfuscation but as the VM is stack-based, the code needs to access the stack variables and it does so by calling the `pop_val` function for example. The following images show the overview of a XOR handler and then its relevant code.
 
 ![Image](/images/mars/xor_handler_view.png "XOR handler overview")
 
 ![Image](/images/mars/xor_handler.png "XOR handler relevant code")
 
-As one can see that part is not obfuscated and it is pretty clear:
+As one can see, that part is not obfuscated and it is pretty clear:
 
 * two values are "popped" from the stack
 * a XOR operation is made between the two values
@@ -307,22 +307,22 @@ As one can see that part is not obfuscated and it is pretty clear:
 This is clearly a weakness in the binary obfuscation and I decided to take advantage of it.
 To that end, one need to:
 
-* make sure that a handler calls 3 functions ("pop_value" twice and "push_value")
-* retrieve the operation right after the second "pop_value"
+* make sure that a handler calls 3 functions ("pop_val" twice and "push_val")
+* retrieve the operation right after the second "pop_val"
 
 The following code searches for the pattern:  
-0 call pop_value  
-...  
-17 call pop_value  
-22 operation  
+	0 call pop_val  
+	...  
+	17 call pop_val  
+	22 operation  
 
 or the following pattern (for the div instruction)  
-0 call pop_value  
-...  
-17 call pop_value  
-...  
-30 cdq  
-31 idiv  
+	0 call pop_val  
+	...  
+	17 call pop_val  
+	...  
+	30 cdq  
+	31 idiv  
 
 ```python
 operations={"xor":"xor","sub":"sub","imul":"mul","lea":"add"}
@@ -349,38 +349,31 @@ Another big assumption I made was using a linear sweep for the disassembly.
 After putting the different techniques together and having crossed my fingers for the code not to break, I obtained the following assembly listing:
 
 ```
-0x0:	0x402335:	push 0x00000000
-0x1:	0x402335:	push 0x00000009
-0x2:	0x401b8f:	store[0x00000000]
-0x3:	0x4018cd:	nop
-0x4:	0x401f62:	load[0x00000000]
-0x5:	0x402335:	push 0x00000000
-0x6:	0x403477:	cge
-0x7:	0x401502:	jcc 0x0000000e
-0x8:	0x401f62:	load[0x00000000]
-0x9:	0x402335:	push 0x00000001
-0xa:	0x402ab2:	swap
-0xb:	0x4051da:	sub
-0xc:	0x401b8f:	store[0x00000000]
-0xd:	0x40114a:	jmp 0x00000003
-0xe:	0x4018cd:	nop
-0xf:	0x401f62:	load[0x00000000]
-0x10:	0x402335:	push 0x00000001
-0x11:	0x406770:	cle
-0x12:	0x401502:	jcc 0x00000015
-0x13:	0x402335:	push 0x00000000
-0x14:	0x40114a:	jmp 0x0000005f
+...
+0x6f2:	0x401f62:	load[0x00000009]
+0x6f3:	0x401f62:	load[0x0000001b]
+0x6f4:	0xbde28a:	mul
+0x6f5:	0x401f62:	load[0x00000017]
+0x6f6:	0x401f62:	load[0x00000012]
+0x6f7:	0x402ab2:	swap
+0x6f8:	0xbdf48d:	sub
+0x6f9:	0x401f62:	load[0x0000001d]
+0x6fa:	0x402ab2:	swap
+0x6fb:	0xbe059f:	xor
+0x6fc:	0xbe1957:	mul
+0x6fd:	0x402335:	push 0x00003fcf
+0x6fe:	0xbe2b48:	cmp
 ...
 ```
 
 The code displays the banner character after character and then asks for a "citizen id".
 The characters are put in the virtual stack but they are not next to each other. Instead the characters are kind of rearranged by the following list:  
-7,8,13,15,16,26,27,22,21,4,18,28,23,29,9,1,25,30,17  
+	7,8,13,15,16,26,27,22,21,4,18,28,23,29,9,1,25,30,17  
 It means that the first character will be put in the 7th virtual stack variable, the 2nd character at the 8th position and so on.
 
 After that some computations between characters are made and the result is compared to hardcoded values. The verification algorithm is based on several equations.  
 For instance the first equation is:
-```
+```python
 (buf[14] * buf[6])*((buf[12]-buf[10])^buf[13]) - 0x3fcf == 0
 ```
 
@@ -388,22 +381,32 @@ After having gathered all the different equations I used z3 to solve them. The c
 
 ```python
 from z3 import *
+
 solver = Solver()
-#first character
-x7=BitVec("x7",8)
-...
-# ascii constraint
-solver.add(x7 >= 32,x7 <= 126)
-...
-# equations
-solver.add((x9 * x1b)*((x17-x12)^x1d) == 0x3fcf)
+
+# Flag order
+order=[7,8,13,15,16,26,27,22,21,4,18,28,23,29,9,1,25,30,17]
+flag={}
+for i in order:
+	flag[i] = BitVec("c_%d" % i,8)
+
+#char constraints
+for k in flag.keys():
+	solver.add(flag[k] >= 32, flag[k] <= 126)
+	
+#equations
+solver.add((flag[9] * flag[27])*((flag[23]-flag[18])^flag[29]) == 0x3fcf)
 ...
 solution=''
 if solver.check() == z3.sat:
     model=solver.model()
-    solution+=chr(int(str(model[x7])))
+    for i in order:
+        solution+=chr(model[flag[i]].as_signed_long())
 print solution
 ```
+
+The scripts yields the following result:  
+**q4Eo-eyMq-1dd0-leKx**
 
 The different scripts can be found [here](https://github.com/0xSQUD/mars_analytica).
 
