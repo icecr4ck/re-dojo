@@ -1,62 +1,62 @@
-baseURL = "https://re-dojo.github.io/"
-languageCode = "en-us"
+## Basic Configuration
+baseurl = "https://re-dojo.github.io/"
+languageCode = "en"
+
 title = "RE-Dojo"
-theme = "blackburn"
-copyright = "&copy; 2018. All rights reserved."
-canonifyurls = true
-paginate = 10
+theme = "hyde-hyde"
 
+## Hugo Built-in Features
+# disqusShortname = "your-disqus-shortname"
+# googleAnalytics = "your-google-analytics-id"
+# enableRobotsTXT = true
+
+# summarylength = 30
+
+#paginate = 5
 [taxonomies]
-  author = "authors"
-  tag = "tags"
-  category = "categories"
+	author = "authors"
+	tag = "tags"
+	category = "categories"
 
-[indexes]
-  topic = "topics"
-
+## Site Settings
 [params]
-  # Shown in the home page
-  subtitle = "Reverse engineering and ninja stuff"
-  brand = "RE-Dojo"
-  #googleAnalytics = "Your Google Analytics tracking ID"
-  disqus = "Your Disqus shortname"
-  # CSS name for highlight.js
-  highlightjs = "androidstudio"
-  dateFormat = "02 Jan 2006, 15:04"
+    author = "RE-Dojo"
+    # description = "..."
+    authorimage = "/img/re-dojo.png"
+    dateformat = "Jan 2, 2006"
+    highlightjs = true
+    highlightjsstyle = "github"
+    # please choose either GraphComment or Disqus
+    #GraphCommentId = "..."
+    
+    # Table of contents
+    #toc = none, "hugo", or "tocbot"
 
-[menu]
-  # Shown in the side menu.
-  [[menu.main]]
-    name = "Home"
-    pre = "<i class='fa fa-home fa-fw'></i>"
-    weight = 1
-    identifier = "home"
-    url = "/"
-  [[menu.main]]
+## Social Accounts
+[params.social]
+    github = "RE-Dojo"
+    #instagram = "<username>"
+    #xing = "<username>"
+    #linkedin = "<username>"
+    #twitter = "<username>"
+    #facebook = "<username>"
+    #stackoverflow = "<username>"
+    #telegram = "<username>"
+    #email = "your-email@example.com"
+
+## Main Menu
+[[menu.main]]
     name = "Posts"
-    pre = "<i class='fa fa-list fa-fw'></i>"
-    weight = 2
+    weight = 100
     identifier = "post"
     url = "/post/"
-  [[menu.main]]
+#[[menu.main]]
+#    name = "Portfolio"
+#    identifier = "portfolio"
+#    weight = 200
+#    url = "/portfolio/"
+[[menu.main]]
     name = "About"
-    pre = "<i class='fa fa-user fa-fw'></i>"
-    weight = 3
     identifier = "about"
+    weight = 300
     url = "/about/"
-  [[menu.main]]
-    name = "Contact"
-    pre = "<i class='fa fa-phone fa-fw'></i>"
-    weight = 4
-    identifier = "contact"
-    url = "/contact/"
-
-[social]
-  # Link your social networking accouns to the side menu
-  # by entering your username or ID.
-  # twitter = "icecr4ck"
-  #facebook = "*"
-  #instagram = "*"
-  github = "RE-Dojo"
-  #stackoverflow = "*"
-  #linkedin = "*" 

@@ -11,6 +11,4 @@ Here you will find different articles about reverse engineering, binary analysis
 
 Blog posts are either written in french or english depending on our mood.
 
-A first article is already published: a write-up about a diamond-related programming language using virtualization obfuscation (this one is in french).
-
 Thanks for reading!
