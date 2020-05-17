@@ -1,7 +1,7 @@
 #!/bin/bash
 echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 # Build the project.
-hugo -t hyde-hyde
+hugo -t axiom
 cd public
 git add -A
 # Commit changes.

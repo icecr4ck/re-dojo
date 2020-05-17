@@ -1,13 +1,11 @@
----
-title: "[NSEC 2018] Mars Analytica (20)"
-date: 2018-10-28T13:37:00-04:00
-authors:
-- 5Cl_lD
-tags:
-- ctf
-- reverse
-- nsec 2018
----
++++
+date = "2018-10-28T13:37:00-04:00"
+author = "scud"
+title = "NorthSec 2018 - Mars Analytica (Reverse) - Write-up"
+subtitle = "Mars Analytica was one of the remained unsolved challenge at the end of NorthSec 2018 CTF. Here is one solution using static analysis and Z3 to find the flag."
+feature = "images/mars/nsec_ctf.png"
+tags = ["ctf", "reverse", "nsec"]
++++
 
 In May 2018, the NorthSec conference and its on-site CTF competition were held. Once again the competition was awesome, the challenges were very diverse and the infrastructure was well configured.
 One of the reverse engineering challenges was a program called **MarsAnalytica**. This challenge remained unsolved at the end of the CTF. This binary was worth a lot of points and I think it was the right amount of points due to the time one would have to spend to solve it.

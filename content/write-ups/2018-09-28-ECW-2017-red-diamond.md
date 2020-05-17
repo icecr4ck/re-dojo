@@ -1,13 +1,11 @@
----
-title: "[ECW 2017] Red Diamond (175)"
-date: 2018-09-28T13:37:00-04:00
-authors:
-- icecr4ck
-tags:
-- ctf
-- reverse
-- ecw 2017
----
++++
+date = "2018-09-28T13:37:00-04:00"
+author = "icecr4ck"
+title = "ECW 2017 - Red Diamond (Reverse) - Write-up"
+subtitle = "In this challenge, we have to analyze a MRuby interpreter and bytecode to find the flag. Both static and dynamic analysis methods are presented to resolve the challenge."
+feature = "images/ecw/ecw_ctf.png"
+tags = ["ctf", "reverse", "ecw"]
++++
 
 Pour la deuxième année consécutive, Thales et Airbus ont organisé un CTF à destination des étudiants européens: le [challenge ECW](https://challenge-ecw.fr/). Tout comme l'année dernière, celui-ci est séparé en une épreuve qualificative individuelle (CTF Jeopardy classique) et une phase finale par équipe avec un format Attaque/Défense.
 
