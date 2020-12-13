@@ -1,10 +1,3 @@
-[submodule "public"]
-	path = public
-	url = https://github.com/re-dojo/re-dojo.github.io.git
-	branch = master
-[submodule "themes/hyde-hyde"]
-	path = themes/hyde-hyde
-	url = https://github.com/htr3n/hyde-hyde.git
 [submodule "themes/axiom"]
 	path = themes/axiom
 	url = https://github.com/marketempower/axiom.git
