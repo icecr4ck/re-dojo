@@ -20,8 +20,9 @@ hugo new write-ups/YYYY-MM-DD-name-of-the-post.md
 hugo server
 ```
 7. Go to `http://localhost:1313/` and check if everything looks fine.
-8. If necessary, set the remote URL as follows.
+8. If necessary, set the remote URL of the public repository as follows.
 ```
+cd public
 git remote set-url origin git@github.com:RE-Dojo/re-dojo.github.io.git
 ```
 9. Run the script `deploy.sh` and enjoy!
