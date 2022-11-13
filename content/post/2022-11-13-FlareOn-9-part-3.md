@@ -27,7 +27,7 @@ Here are the links to the other solutions:
 I'm such a backdoor, decompile me why don't you...
 ```
 
-The eight challenge is a PE executable written in .NET.
+The eighth challenge is a PE executable written in .NET.
 ```bash
 $ file FlareOn.Backdoor.exe
 FlareOn.Backdoor.exe: PE32 executable (console) Intel 80386 Mono/.Net assembly, for MS Windows
@@ -35,7 +35,7 @@ FlareOn.Backdoor.exe: PE32 executable (console) Intel 80386 Mono/.Net assembly, 
 
 ### First look
 
-When the executable is opened in dnSpy, we quickly understand that something is wrong.
+When the executable is opened in dnSpy, we quickly understand that something is wrong as some methods cannot be decompiled.
 
 {{< figure src="/images/flareon9/Challenge_8_main_function.png" >}}
 

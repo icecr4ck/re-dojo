@@ -8,7 +8,7 @@ tags:
   - Flare-On
 ---
 
-This blog post details the solution of the challenges 9 to 11 of the Flare-On 9.
+This blog post details the solutions of the challenges 9 to 11 of the Flare-On 9.
 
 <!--more-->
 
