@@ -1,3 +1,0 @@
-+++
-title = "ctf write-ups"
-+++

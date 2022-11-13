@@ -1,0 +1,52 @@
+baseurl = "https://re-dojo.github.io/"
+
+languageCode = "en"
+title = "RE-Dojo"
+
+theme = "axiom"
+
+paginate = 10
+rssLimit = 100
+enableEmoji = true
+enableRobotsTXT = true
+
+PygmentsCodeFences = true
+PygmentsStyle = "monokai"
+
+[params]
+copyrightYear = 2018
+dateFormat = "Jan 2, 2006 3:04PM"
+
+[params.social]
+github = "https://github.com/re-dojo"
+footer = ["github"]
+
+[params.logo]
+inline = true
+path = "images/brand/logo.svg"
+
+[params.image]
+faviconIco = "favicon.ico"
+faviconAlt = "images/brand/favicon.png"
+
+[outputs]
+home = ["HTML", "ATOM"]
+section = ["HTML"]
+taxonomy = ["HTML"]
+taxonomyTerm = ["HTML"]
+
+[outputFormats]
+[outputFormats.ATOM]
+name = "ATOM"
+baseName = "feed"
+mediaType = "application/atom+xml"
+
+[mediaTypes]
+[mediaTypes."application/atom+xml"]
+suffixes = ["atom"]
+
+[menu]
+[[menu.main]]
+url = "/write-ups/"
+name = "Write-ups"
+weight = 1

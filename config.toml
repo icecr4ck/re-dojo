@@ -2,51 +2,49 @@ baseurl = "https://re-dojo.github.io/"
 
 languageCode = "en"
 title = "RE-Dojo"
+theme = "geekblog"
 
-theme = "axiom"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+disablePathToLower = true
 
-paginate = 10
-rssLimit = 100
-enableEmoji = true
-enableRobotsTXT = true
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 9
 
-PygmentsCodeFences = true
-PygmentsStyle = "monokai"
-
-[params]
-copyrightYear = 2018
-dateFormat = "Jan 2, 2006 3:04PM"
-
-[params.social]
-github = "https://github.com/re-dojo"
-footer = ["github"]
-
-[params.logo]
-inline = true
-path = "images/brand/logo.svg"
-
-[params.image]
-faviconIco = "favicon.ico"
-faviconAlt = "images/brand/favicon.png"
-
-[outputs]
-home = ["HTML", "ATOM"]
-section = ["HTML"]
-taxonomy = ["HTML"]
-taxonomyTerm = ["HTML"]
-
-[outputFormats]
-[outputFormats.ATOM]
-name = "ATOM"
-baseName = "feed"
-mediaType = "application/atom+xml"
+[taxonomies]
+  author = "authors"
+  tag = "tags"
 
 [mediaTypes]
-[mediaTypes."application/atom+xml"]
-suffixes = ["atom"]
+  [mediaTypes."application/atom+xml"]
+    suffixes = ["xml"]
 
-[menu]
-[[menu.main]]
-url = "/write-ups/"
-name = "Write-ups"
-weight = 1
+[outputFormats]
+  [outputFormats.Atom]
+    name = "Atom"
+    mediaType = "application/atom+xml"
+    baseName = "atom"
+    isPlainText = false
+    rel = "alternate"
+    isHTML = false
+    noUgly = true
+    permalinkable = false
+
+[outputFormats.outputs]
+  home = ["HTML", "ATOM"]
+  page = ["HTML"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML", "ATOM"]
+
+[params]
+  subtitle = "Blog about reverse engineering and program analysis"
+  logo = "images/brand/logo.svg"
+
+  [params.geekblogContentLicense]
+    name = "CC BY-SA 4.0"
+    link = "https://creativecommons.org/licenses/by-sa/4.0/" 
