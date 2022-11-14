@@ -23,7 +23,7 @@ Here are the links to the other solutions:
 
 ### Description
 
-```md
+```Plain
 I'm such a backdoor, decompile me why don't you...
 ```
 
@@ -41,34 +41,34 @@ When the executable is opened in dnSpy, we quickly understand that something is 
 
 Looking more closely at the other functions of the executable, we can divide them into two categories.
 - `flare_XX()`: classic C# bytecode, can be decompiled using dnSpy.
-- `flared_XX()`: obfuscated/encrypted functions.
+- `flared_XX()`: obfuscated/encrypted methods.
 
 {{< figure src="/images/flareon9/Challenge_8_function_list.png" >}}
 
 ### Understanding the first layer of obfuscation
 
-If we follow the execution flow from the `Main()` function, the function `FLARE15.flare_74()` is called to initialize several global arrays and returns normally. Then, the call `Program.flared_38()` raises an exception (`InvalidProgramException`) as the latter is obfuscated/encrypted. The exception is catched and leads to the execution of `FLARE15.flare_70()`.
+If we follow the execution flow from the `Main()` function, the function `FLARE15.flare_74()` is called to initialize several global arrays and returns normally. Then, the call to `Program.flared_38()` raises an exception (`InvalidProgramException`) as the method is invalid. The exception is catched and leads to the execution of `FLARE15.flare_70()`.
 
 {{< figure src="/images/flareon9/Challenge_8_flare_70.png" >}}
 
 Again, an exception is raised when `FLARE15.flared_70()` is executed and this time it is handled by `FLARE15.flare_71()`. Interestingly, the latter also takes two extra parameters: `FLARE15.wl_m` and `FLARE15.wl_b` (defined in `FLARE15.flare_74()`).
 
 This method is not obfuscated and can be easily analyzed once decompiled. Here is what it does.
-1. Retrieve the metadata token (pointer in metadata table, see [here](https://learn.microsoft.com/en-us/dotnet/standard/metadata-and-self-describing-components#metadata-tokens) for more details) of the function that caused the exception from the stack trace.
+1. Retrieve the [metadata token](https://learn.microsoft.com/en-us/dotnet/standard/metadata-and-self-describing-components#metadata-tokens) of the function that caused the exception from the stack trace.
 2. Get the prototype of the function from the metadata token.
 3. Create a new `DynamicMethod` from the prototype.
 4. Iterate over the `Dictionary` given as third parameter (`FLARE15.wl_m`)
 	- each key is an index in the byte array given as fourth parameter (`FLARE15.wl_b`), the latter is actually the bytecode of the dynamic method previously created;
 	- each value is a valid metadata token in the program.
-5. Each metadata token is translated into a valid token in the scope of the dynamic method. For example, if the token "points" to a string of the program, it is first resolved using the `Module.ResolveString()` function and then a token is created the using `DynamicILInfo.GetTokenFor()` method.
+5. Each metadata token is translated into a valid token in the scope of the dynamic method. For example, if the token "points" to a string of the program, it is first resolved via `Module.ResolveString()` and then a token is created using `DynamicILInfo.GetTokenFor()`.
 
 {{< figure src="/images/flareon9/Challenge_8_flare_71_resolve_token.png" >}}
 
-7. The resulting token is written to the bytecode of the dynamic method at the index specified by the `key` variable.
+6. The resulting token is written to the bytecode of the dynamic method at the index specified by the `key` variable.
 
 {{< figure src="/images/flareon9/Challenge_8_flare_71_patch_token.png" >}}
 
-8. Finally, the patched bytecode is set as the code body of the dynamic method and the latter is executed.
+7. Finally, the patched bytecode is set as the code body of the dynamic method and the latter is executed.
 
 {{< figure src="/images/flareon9/Challenge_8_flare_71_exec_bytecode.png" >}}
 
@@ -136,7 +136,7 @@ The first case to be executed is `FLARE08.A` but it does not call any method, wh
 
 The backdoor communicates with its Command & Control (C&C) server via DNS (only A queries are supported).
 
-Obviously, the domain name of the C&C server is `flare-on.com` and the payload is encoded using a custom algorithm as a sub-domain.
+Obviously, the domain name of the C&C server is `flare-on.com`. The payload is encoded using a custom algorithm as a sub-domain.
 
 The method responsible for building the payload is `FLARE05.flared_29()`. It takes two parameters:
 - a payload type (`FLARE06.DomT`));
@@ -154,7 +154,25 @@ Five different payload types are implemented by the backdoor, they are detailed 
 
 The following sequence diagram sums up how the different payloads are used by the backdoor.
 
-{{< figure src="/images/flareon9/Challenge_8_seq_diagram.png" >}}
+{{<mermaid>}}
+sequenceDiagram
+	participant Backdoor
+	participant C2
+	Backdoor->>C2: DomT.A (HELLO)
+	C2->>Backdoor: Answer (NEW AGENT_ID)
+	Backdoor->>C2: DomT.E (REQUEST TASK)
+	C2->>Backdoor: Answer (TASK SIZE)
+	loop GET_TASK_DATA
+		Backdoor->>C2: DomT.C (REQUEST TASK DATA)
+		C2->>Backdoor: Answer (TASK DATA)
+	end
+	loop SEND_TASK_RESULT
+		Backdoor->>C2: DomT.B (TASK RESULT DATA)
+		C2->>Backdoor: Answer (NEXT TASK SIZE)
+	end
+	Backdoor->>C2: DomT.D (REQUEST NEXT TASK DATA)
+	C2->>Backdoor: Answer (TASK DATA)
+{{</mermaid>}}
 
 Payload data is encoded using a substitution alphabet built from the `counter`. More precisely, the alphabet is randomly generated using a [Mersenne-Twister](https://en.wikipedia.org/wiki/Mersenne_Twister) seeded with the `counter`. The latter is incremented by one after each request to the C&C server.
 

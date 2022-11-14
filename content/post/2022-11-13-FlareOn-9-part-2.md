@@ -23,7 +23,7 @@ Here are the links to the other solutions:
 
 ### Description
 
-```md
+```Plain
 FLARE FACT #823: Studies show that C++ Reversers have fewer friends on average than normal people do. That's why you're here, reversing this, instead of with them, because they don't exist.
 
 We’ve found an unknown executable on one of our hosts. The file has been there for a while, but our networking logs only show suspicious traffic on one day. Can you tell us what happened?

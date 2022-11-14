@@ -1,6 +1,6 @@
 # RE-Dojo
 
-Blog about reverse engineering, binary analysis and CTF challenges.
+Blog about reverse engineering and CTF challenges.
 
 ## How to write a new post and publish it
 
@@ -11,7 +11,7 @@ git clone --recursive https://github.com/icecr4ck/re-dojo.git
 ```
 3. Create a new post.
 ```
-hugo new write-ups/YYYY-MM-DD-name-of-the-post.md
+hugo new post/YYYY-MM-DD-name-of-the-post.md
 ```
 4. Edit the newly created post file and fix the metadata fields as necessary (author, title, subtitle...).
 5. If you need to add images, copy them to `static/images`.
@@ -29,28 +29,23 @@ git remote set-url origin git@github.com:RE-Dojo/re-dojo.github.io.git
 
 ## How to add a new author
 
-1. Edit the file `data/author.toml`
-2. Add a new author using the following template:
+1. Create a new file at `data/authors/john-doe.yml` (replace the filename accordingly)
+2. Edit the file using the following template:
 ```
-[superman]
-name = "Clark Kent"
-uri = "https://www.superman.com"
-twitter = "superman"
-image = "images/author/superman.png"
-email = "superman@earth.com"
+name: John Doe
+email: john@example.com
 ```
-3. Add your profile picture to `static/images/author/`
-4. Add the author field to your blog posts
+3. Add the author field to your blog posts
 ```
-+++
 [...]
-author = "superman"
+authors:
+  - john-doe 
 [...]
-+++
 ```
 
 ## Resources
 
 * https://gohugo.io/getting-started/quick-start/
 * https://gohugo.io/hosting-and-deployment/hosting-on-github/
+* https://hugo-geekblog.geekdocs.de/
 * https://github.com/marketempower/axiom
