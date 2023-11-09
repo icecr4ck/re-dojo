@@ -1,7 +1,7 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-author: {{ $.Param "author" }}
+author: 
 draft: true
 ---
 

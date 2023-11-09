@@ -13,19 +13,19 @@ git clone --recursive https://github.com/icecr4ck/re-dojo.git
 ```
 hugo new post/YYYY-MM-DD-name-of-the-post.md
 ```
-4. Edit the newly created post file and fix the metadata fields as necessary (author, title, subtitle...).
+4. Edit the newly created post file and fix the metadata fields as necessary (author, title, tags, etc.).
 5. If you need to add images, copy them to `static/images`.
 6. Go to the root of the repository and start the server.
 ```
 hugo server
 ```
-7. Go to `http://localhost:1313/` and check if everything looks fine.
+7. Go to [http://localhost:1313/](http://localhost:1313) and check if everything looks fine.
 8. If necessary, set the remote URL of the public repository as follows.
 ```
 cd public
 git remote set-url origin git@github.com:RE-Dojo/re-dojo.github.io.git
 ```
-9. Run the script `deploy.sh` and enjoy!
+9. Go back to the root of the repository and run the script `deploy.sh`.
 
 ## How to add a new author
 
