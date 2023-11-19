@@ -87,7 +87,7 @@ This year, there was a total of 13 challenges to solve, which is more than previ
 
 {{< img name="flareon-solves" lazy=false size=origin >}}
 
-To avoid writing a post longer [last year](https://re-dojo.github.io/post/2022-11-13-FlareOn-9/), I only wrote solutions for the challenges I liked and learned the most from. Solutions from the challenge authors are available on Mandiant's [blog](https://www.mandiant.com/resources/blog/flareon10-challenge-solutions).
+To avoid writing a post longer than [last year](https://re-dojo.github.io/post/2022-11-13-FlareOn-9/), I only wrote solutions for the challenges I liked and learned the most from. Solutions from the challenge authors are available on Mandiant's [blog](https://www.mandiant.com/resources/blog/flareon10-challenge-solutions).
 
 Thanks to the FLARE team for the hard work, I hope this challenge will continue to live on.
 
