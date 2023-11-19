@@ -1,0 +1,34 @@
+{{ define "main" }}
+  <article class="gblog-post">
+    <header class="gblog-post__header">
+      {{ $source := ($.Resources.ByType "image").GetMatch "{*feature*,*cover*,*thumbnail*}" }}
+      {{ with $source }}
+        <div class="gblog-post__feature">
+          <picture>
+            {{ $featured := .Fill (printf "910x280 %s" (default "Smart" .Params.anchor)) }}
+            <source srcset="{{ $featured.Permalink }}" />
+            <img
+              src="{{ $featured.Permalink }}"
+              alt="{{ default (partial "utils/title" $) .Params.description }}"
+            />
+          </picture>
+          {{ with $source.Params.credits }}
+            <span>Credits: {{ . | $.Page.RenderString | safeHTML }}</span>
+          {{ end }}
+        </div>
+      {{ end }}
+
+
+      <h1 class="gblog-post__title">{{ partial "utils/title" . }}</h1>
+
+      {{ if or (eq .Type (default "posts" .Site.Params.GeekblogContentSection)) (eq .Type "post") }}
+        <div class="flex flex-wrap align-center gblog-post__meta gblog-post__meta--head">
+          {{ partial "metadata.html" . }}
+        </div>
+      {{ end }}
+    </header>
+    <section class="gblog-markdown">
+      {{ partial "utils/content" . }}
+    </section>
+  </article>
+{{ end }}

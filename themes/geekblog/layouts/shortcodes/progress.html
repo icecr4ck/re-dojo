@@ -1,0 +1,24 @@
+{{- $value := default 0 (.Get "value") -}}
+{{- $label := default (printf "%v %%" $value) (.Get "label") -}}
+{{- $title := .Get "title" -}}
+{{- $icon := .Get "icon" -}}
+
+
+<div class="gblog-progress">
+  <div class="gblog-progress__label flex justify-between">
+    <div class="gblog-progress__label--name flex align-center">
+      {{ with $icon -}}
+        <svg class="gblog-icon {{ . }}"><use xlink:href="#{{ . }}"></use></svg>
+      {{- end }}
+      {{ with $title }}<span>{{ . }}</span>{{ end }}
+    </div>
+    <div>{{ $label }}</div>
+  </div>
+  <div class="gblog-progress__wrap">
+    <div
+      class="gblog-progress__bar"
+      data-percent="{{ $value }}"
+      style="width: {{ $value }}%; max-width: 100%; min-width: 0"
+    ></div>
+  </div>
+</div>

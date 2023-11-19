@@ -17,7 +17,6 @@ disablePathToLower = true
 
 [taxonomies]
   author = "authors"
-  tag = "tags"
 
 [mediaTypes]
   [mediaTypes."application/atom+xml"]
