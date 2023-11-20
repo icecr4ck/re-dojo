@@ -143,7 +143,7 @@ At the entry point, a 32-bit checksum of our patched data is computed and compar
 
 ## Challenge 9 - mbransom
 
-```md
+```plain
 You’re doing so great! Go out and celebrate. Take a day off kid, you’ve earned it. Watch your scoreboard position fall like the sand through the hourglass. Avoid this VM and feel the joy the outside world has to offer. Or crush this one and earn even more internet points, those will come in handy.
 ```
 
@@ -171,7 +171,7 @@ boot: disk
 
 Once the `bochsrc` file has been correctly edited, we can test it with the Bochs emulator using the following command line.
 
-```
+```plain
 "C:\Program Files\Bochs-2.7\bochsdbg.exe" -f bochsrc -q
 ```
 
@@ -215,7 +215,7 @@ Obviously, the disk was encrypted using the [Blowfish](https://en.wikipedia.org/
 
 ## Challenge 11 - over_the_rainbow
 
-```md
+```plain
 I’m told this one is easy if you are really good. Based on your solve times so far Google Bard predicts your performance will be: “1 out of 5 stars. I’d give it 0 stars if I could. Food arrived over an hour late, covered in oil. I wouldn’t feed it to my dog”
 ```
 
@@ -323,7 +323,7 @@ The flag is `Wa5nt_th1s_Supp0s3d_t0_b3_4_r3vers1nG_ch4l1eng3@flare-on.com`
 
 ## Challenge 12 - HVM
 
-```md
+```plain
 This is the second smallest challenge this year! If only that mattered.
 ```
 
@@ -407,7 +407,7 @@ Running this script decrypts the actual instructions of the function. As expecte
 
 From there, it appears that all the functions of the shellcode seem to be wrapped by these decryption and encryption routines. The RC4 key is unique for each function and obviously the size differs as well. However, the instructions opcodes of these routines and the operands of the `in` and `out` instructions remain constant from one function to another. Thus, it is possible to use the following search pattern to find all the encrypted functions and progressively decrypt them.
 
-```
+```plain
 49 B8 ?? ?? ?? ?? ?? ?? ?? ?? 41 B9 ?? ?? ?? ?? E4 03
 ```
 
@@ -417,7 +417,7 @@ Obviously, the process of searching and decrypting can be automated using a few 
 
 Once the functions are all decrypted, getting the first parameter value is straightforward as it is simply XOR-ed with the key `loremipsumloremipsumloremipsumloremipsumloremips` and the result is compared with an hardcoded value. This gives the following string for the first input.
 
-```
+```plain
 FLARE2023FLARE2023FLARE2023FLARE2023
 ```
 
@@ -425,14 +425,14 @@ Retrieving the second parameter is a bit more complicated. It is decoded using b
 
 From there, I chose to emulate the modified Salsa20 to reverse the process and retrieve the second parameter. My script based on miasm is available [here](https://github.com/icecr4ck/write-ups/blob/master/FlareOn-10/Challenge_12_HVM/get_flag.py). The script also decrypts the flag.
 
-```
+```plain
 Second parameter: zBYpTBUWJvf9MUH4KtcYv7sdUVUPcjOCiU5G5i63bb+LLBZsAmEk9YlNMplv5SiN
 Flag: c4n_i_sh1p_a_vm_as_an_exe_ask1ng_4_a_frnd@flare-on.com
 ```
 
 ## Challenge 13 - y0da
 
-```md
+```plain
 So close to the end you can almost taste it. Keep going champ, complete this challenge and take your place as one of the Reverse Engineers of All-Time.
 ```
 
@@ -499,7 +499,7 @@ The first thread handles two special cases:
 
 The password is split in four parts, separated by the `_` character. For each part, its MD5 hash is computed and checked against a hardcoded one. The four MD5 hashes as well as their corresponding clear value are given below.
 
-```
+```plain
 4c8476db197a1039153ca724674f7e13: patience
 627fe11eeef8994b7254fc1da4a0a3c7: y0u
 d0e6ef34e76c41b0fac84f608289d013: must

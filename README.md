@@ -11,10 +11,10 @@ git clone --recursive https://github.com/icecr4ck/re-dojo.git
 ```
 3. Create a new post.
 ```
-hugo new post/YYYY-MM-DD-name-of-the-post.md
+hugo new posts/name-of-the-post/index.md
 ```
 4. Edit the newly created post file and fix the metadata fields as necessary (author, title, tags, etc.).
-5. If you need to add images, copy them to `static/images`.
+5. If you need to add images, create a `images` directory in `posts/name-of-the-post/` and add them as resources.
 6. Go to the root of the repository and start the server.
 ```
 hugo server
