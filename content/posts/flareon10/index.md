@@ -304,7 +304,7 @@ The Coppersmith attack is done on a monic polynomial (single variable and the le
 
 ```python
 sage: P.<x> = PolynomialRing(Zmod(N))
-sage: f = ((msg + (2**128)*x)^e) - c
+sage: f = ((m + (2**128)*x)^e) - c
 sage: f = f.monic()
 ```
 
